@@ -1,0 +1,36 @@
+{
+  "name": "crud",
+  "version": "1.0.0",
+  "description": "This is simple restful api for crud operation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "crud",
+    "node",
+    "restful",
+    "api",
+    "web",
+    "service",
+    "mondodb",
+    "express",
+    "mongoose",
+    "pody-parser"
+  ],
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Rajan",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.24",
+    "mongoose": "^4.9.0",
+    "nodemon": "^1.11.0"
+  },
+  "devDependency": {
+    "nodemon": "^1.11.0"
+  }
+}
