@@ -2,6 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var app = express();
+var Phone = require('./models/phones');
 var port = process.env.PORT || 3000;
 
 //this will let us get data from the request
@@ -20,15 +21,6 @@ db.on('open', () => {
   app.listen(port); //if connected to db, then start listening on given port
   console.log("listening on " + port);
 });
-//create new schema
-
-var phoneSchema = mongoose.Schema({
-  "name": String,
-  "description": String
-});
-
-var Phone = mongoose.model('Phone', phoneSchema);
-
 
 //routes for our APIs
 var router = express.Router();
@@ -41,21 +33,18 @@ router.use((req, res, next) => {
 });
 
 //Our APIs
-
 //accessed at  http://localhost:8080/api/phones
 router.route('/phones')
   // create a new phone with post request
   .post((req, res) => {
-    var phone = new Phone(); //create new instance of phone model
-    phone.name = req.body.name;
-    phone.description = req.body.description;
+    var phone = new Phone({
+      name: req.body.name      
+    }); //create new instance of phone model
 
     phone.save((err) => {
       if (err) res.send(err);
 
-      res.json({
-        message: 'New Phone Created'
-      });
+      res.json(201, phone);
     })
   })
   //get all phones
