@@ -19,6 +19,7 @@
     "pody-parser"
   ],
   "scripts": {
+    "prestart": "npm install",
     "start": "nodemon server.js"
   },
   "author": "Rajan",
