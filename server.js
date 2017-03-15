@@ -6,10 +6,9 @@ var Phone = require('./models/phones');
 var port = process.env.PORT || 3000;
 
 //this will let us get data from the request
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 //open a connection to database
 mongoose.connect('mongodb://raj:password@ds129260.mlab.com:29260/restfulcrud');
@@ -24,7 +23,7 @@ db.on('open', () => {
 
 //routes for our APIs
 var router = express.Router();
-app.use('/api', router);
+
 
 //Middleware to use for all request
 router.use((req, res, next) => {
@@ -37,14 +36,14 @@ router.use((req, res, next) => {
 router.route('/phones')
   // create a new phone with post request
   .post((req, res) => {
+  console.log(JSON.stringify(req.body));
     var phone = new Phone({
       name: req.body.name      
     }); //create new instance of phone model
 
     phone.save((err) => {
       if (err) res.send(err);
-
-      res.json(201, phone);
+      res.status(201).json(phone);
     })
   })
   //get all phones
@@ -93,3 +92,5 @@ router.route('/phones/:phoneId')
       });
     });
   });
+
+app.use('/api', router);
