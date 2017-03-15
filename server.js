@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var app = express();
 var Phone = require('./models/phones');
+var Brand = require('./models/brands');
 var port = process.env.PORT || 3000;
 //this will let us get data from the request
 app.use(bodyParser.urlencoded({
@@ -30,6 +31,32 @@ router.use((req, res, next) => {
   next();
 });
 //Our APIs
+
+router.route('/brands')
+
+.post((req, res) => {
+  console.log(JSON.stringify(req.body));
+
+  var brand = new Brand({
+    brandName: req.body.brandName
+  })
+
+  brand.save((err) => {
+    if (err) res.send(err);
+    res.status(201).json(brand);
+  })
+})
+
+//get all brands
+.get((req, res) => {
+  Brand.find((err, brands) => {
+    if (err) res.send(err)
+    res.json(brands)
+  })
+});
+
+
+
 //accessed at  http://localhost:8080/api/phones
 router.route('/phones')
 

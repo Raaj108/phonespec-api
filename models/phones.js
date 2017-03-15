@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
-var Schema =  mongoose.Schema;
+var Schema = mongoose.Schema;
 var phoneSchema = new Schema({
-  brand: String,  
-  model: [{}]
+  phoneName: String,
+  brandName: String
 });
 
 var Phone = mongoose.model('Phone', phoneSchema);
