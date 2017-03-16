@@ -64,8 +64,8 @@ router.route('/phones')
 .post((req, res) => {
   console.log(JSON.stringify(req.body));
   var phone = new Phone({
-    brand: req.body.brand,
-    model: req.body.model
+    phoneName: req.body.phoneName,
+    brandName: req.body.brandName
   });
   //create new instance of phone model
   phone.save((err) => {
@@ -97,8 +97,8 @@ router.route('/phones/:brand')
 .put((req, res) => {
   Phone.findById(req.params.phoneId, (err, phone) => {
     if (err) res.send(err)
-    brand = req.body.brand;
-    model = req.body.model; // update phone info
+    phoneName = req.body.phoneName;
+    brandName = req.body.brandName; // update phone info
     phone.save((err) => {
       if (err) res.send(err)
       res.json({
