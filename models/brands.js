@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
-var Schema =  mongoose.Schema;
+var Schema = mongoose.Schema;
 var brandSchema = new Schema({
-  brandName: String 
+  brandName: {
+    type: String,
+    required: [true, 'What is the Brand?']
+  }
 });
 
 var Brand = mongoose.model('Brand', brandSchema);
