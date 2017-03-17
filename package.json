@@ -4,7 +4,8 @@
   "description": "This is simple restful api for crud operation",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "npm install",
+    "start": "nodemon server.js"
   },
   "keywords": [
     "crud",
@@ -18,14 +19,11 @@
     "mongoose",
     "pody-parser"
   ],
-  "scripts": {
-    "prestart": "npm install",
-    "start": "nodemon server.js"
-  },
   "author": "Rajan",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "cors": "^2.8.1",
     "express": "^4.15.2",
     "mongodb": "^2.2.24",
     "mongoose": "^4.9.0",
