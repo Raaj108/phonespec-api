@@ -73,6 +73,10 @@ router.route('/admin/brand/:brand/phone')
         var phone = new Phone({
             phoneName: req.body.phoneName
             , brandName: req.params.brand
+            , additionalFeatures: req.body.additionalFeatures
+            , platform: req.body.platform
+            , availability: req.body.availability
+            , "battery": req.body.battery
         });
         phone.save((err) => {
             if (err) res.send(err);
