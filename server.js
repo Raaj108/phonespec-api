@@ -5,6 +5,7 @@ var cors = require('cors');
 var app = express();
 var Phone = require('./models/phones');
 var Brand = require('./models/brands');
+var Spec = require('./models/specs');
 var port = process.env.PORT || 3000;
 //this will let us get data from the request
 app.use(bodyParser.urlencoded({
@@ -66,12 +67,12 @@ router.route('/admin/brand/:brandId').put((req, res) => {
     })
     /*********************URL related to phone******************************/
     //accessed at  http://localhost:8080/api/phones
-router.route('/admin/brand/:brand/phone')
+router.route('/admin/brand/:brand/phones/:phone')
     // create a new phone with post request(post the brand's name in URL and Phone name in the body of request to add new phone with brand)(accessed only by admin)
     .post((req, res) => {
         console.log(JSON.stringify(req.body));
         var phone = new Phone({
-            phoneName: req.body.phoneName
+            phoneName: req.params.phone
             , brandName: req.params.brand
             , additionalFeatures: req.body.additionalFeatures
             , platform: req.body.platform
@@ -84,7 +85,7 @@ router.route('/admin/brand/:brand/phone')
         })
     });
 //get all the phones with a specific brand (post the brand's name in the url to get all phones of a specific brand)
-router.route('/brand/:brand/phone').get((req, res) => {
+router.route('/brand/:brand/phones').get((req, res) => {
     Phone.find({
         brandName: req.params.brand
     }, (err, phone) => {
@@ -92,7 +93,7 @@ router.route('/brand/:brand/phone').get((req, res) => {
         res.json(phone)
     })
 })
-router.route('/brand/:brand/phone/:phone').get((req, res) => {
+router.route('/brand/:brand/phones/:phone').get((req, res) => {
     Phone.find({
         phoneName: req.params.phone
     }, (err, phone) => {
@@ -101,7 +102,7 @@ router.route('/brand/:brand/phone/:phone').get((req, res) => {
     })
 });
 //update the specific phone's specific information (post the brand's name, phone's Id in the url, and info. that you want to update in request body to update phone's info.)
-router.route('/admin/brand/:brand/phone/:phoneId').put((req, res) => {
+router.route('/admin/brand/:brand/phones/:phoneId').put((req, res) => {
         Phone.findById(req.params.phoneId, (err, phone) => {
             if (err) res.send(err);
             for (var key in req.body) {
