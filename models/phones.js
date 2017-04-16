@@ -1,98 +1,88 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
-//BATTERY SCHEMA
-var batterySchema = new Schema({
-  capacity: String,
-  type: String,
-  talktime: String,
-  standBy: String,
-  internetUse: Schema.Types.Mixed,
-  playBack: Schema.Types.Mixed,
-  wirelessCharging: Boolean
-});
-
-var design = new Schema({
-  deviceType: String,
-  platform: String,
-  dimension: String,
-  weight: String,
-  colors: [String],
-  materials: [String],
-  additionalFeatures: [String],
-
-})
-
-//DISPLAY SCHEMA
+var designSchema = new Schema({
+        operatingSystem: String
+        , deviceType: String
+        , dimension: String
+        , weight: String
+        , materials: [String]
+        , colors: [String]
+        , additionalFeatures: [String]
+    , })
+    //DISPLAY SCHEMA
 var displaySchema = new Schema({
-  size: String,
-  pixelDensity: String,
-  resolution: [String],
-  technology: String,
-  features: [String]
+    resolution: [String]
+    , size: String
+    , pixelDensity: String
+    , technology: String
+    , features: [String]
 });
-
-
 //CAMERA SCHEMA
 var cameraSchema = new Schema({
-  megaPixel: String,
-  aperture: String,
-  pixelSize: String,
-  sensorSize: String,
-  fieldOfView: String,
-  features: [String],
-  zoom: String,
-  typeOfZoom: String,
-  modes: [String],
-  settings: [String],
-  frontCamera: Schema.Types.Mixed,
-  videoRecording: [String]
+    megaPixel: String
+    , modes: [String]
+    , pixelSize: String
+    , aperture: String
+    , sensorSize: String
+    , zoom: String
+    , typeOfZoom: String
+    , features: [String]
+    , settings: [String]
+    , frontCamera: Schema.Types.Mixed
+    , videoRecording: [String]
 });
-
+//BATTERY SCHEMA
+var batterySchema = new Schema({
+    capacity: String
+    , type: String
+    , internetUse: Schema.Types.Mixed
+    , talktime: String
+    , standBy: String
+    , playBack: Schema.Types.Mixed
+    , wirelessCharging: Boolean
+});
 var hardwareSchema = new Schema({
-  chipset: String,
-  processor: String,
-  graphicsProcessor: String,
-  ram: String,
-  storage: [String],
-  expansion: [String]
+    processor: String
+    , ram: String
+    , storage: [String]
+    , graphicsProcessor: String
+    , expansion: [String]
+    , chipset: String
 });
-
-var connectivitySchema = new Schema({
-  bluetooth: String,
-  gps: [String],
-  usb: String,
-  wifi: Schema.Types.Mixed,
-  payment: String,
-  other: Schema.Types.Mixed
-});
-
-var networkSchema = new Schema({
-  gsm: [String],
-  umts: [String],
-  lteFDD: [Schema.Types.Mixed],
-  lteTTD: [Schema.Types.Mixed],
-  sim: String,
-  data: [String]
-});
-
 var multiMediaSchema = new Schema({
-  audio: [Schema.Types.Mixed],
-  video: [Schema.Types.Mixed]
+    audio: [Schema.Types.Mixed]
+    , video: [Schema.Types.Mixed]
 });
-
+var connectivitySchema = new Schema({
+    wifi: Schema.Types.Mixed
+    , gps: [String]
+    , bluetooth: String
+    , payment: String
+    , usb: String
+    , other: Schema.Types.Mixed
+});
+var networkSchema = new Schema({
+    sim: String
+    , data: [String]
+    , gsm: [String]
+    , lteFDD: [Schema.Types.Mixed]
+    , lteTTD: [Schema.Types.Mixed]
+    , umts: [String]
+});
 //PHONE SCHEMA (PARENT OF ALL OTHER SCHEMAS)
 var phoneSchema = new Schema({
-  phoneName: String,
-  brandName: String,
-  availability: [String],
-  battery: batterySchema,
-  display: displaySchema,
-  camera: cameraSchema,
-  hardware: hardwareSchema,
-  connectivity: connectivitySchema,
-  network: networkSchema,
-  multimedia: multiMediaSchema
+    phoneName: String
+    , brandName: String
+    , availability: [String]
+    , description: String
+    , design: designSchema
+    , display: displaySchema
+    , camera: cameraSchema
+    , battery: batterySchema
+    , hardware: hardwareSchema
+    , multimedia: multiMediaSchema
+    , connectivity: connectivitySchema
+    , network: networkSchema
 });
 var Phone = mongoose.model('Phone', phoneSchema);
 module.exports = Phone;
