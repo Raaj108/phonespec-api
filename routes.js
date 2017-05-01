@@ -49,8 +49,7 @@ router.route('/admin/brand/:brand/phone').post((req, res) => {
     var phone = new Phone({
         phoneName: req.body.phoneName
         , brandName: req.params.brand
-        , additionalFeatures: req.body.additionalFeatures
-        , platform: req.body.platform
+        , additionalFeatures: req.body.additionalFeatures        
         , availability: req.body.availability
         , description: req.body.description
         , design: {
