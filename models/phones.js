@@ -1,5 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
+//BASIC INFORMATION SCHEMA
+var basicInfoSchema = new Schema({
+  phoneName: String,
+  brandName: String,
+  description: String,
+  releaseDate: String,
+  additionalFeatures: [String]
+})
+//DESIGN SCHEMA
 var designSchema = new Schema({
   operatingSystem: String,
   deviceType: String,
@@ -8,7 +18,7 @@ var designSchema = new Schema({
   materials: [String],
   colors: [String],
   additionalFeatures: [String],
-})
+});
 //DISPLAY SCHEMA
 var displaySchema = new Schema({
   resolution: [String],
@@ -44,9 +54,10 @@ var batterySchema = new Schema({
 var hardwareSchema = new Schema({
   processor: String,
   ram: String,
-  storage: [String],
+  internalstorage: [String],
   graphicsProcessor: String,
-  expansion: [String],
+  storageexpansion: [String],
+  sensors:[String],
   chipset: String
 });
 var multiMediaSchema = new Schema({
@@ -71,11 +82,7 @@ var networkSchema = new Schema({
 });
 //PHONE SCHEMA (PARENT OF ALL OTHER SCHEMAS)
 var phoneSchema = new Schema({
-  phoneName: String,
-  brandName: String,
-  additionalFeatures: [String],
-  availability: [String],
-  description: String,
+  basicInfo: basicInfoSchema,
   design: designSchema,
   display: displaySchema,
   camera: cameraSchema,
