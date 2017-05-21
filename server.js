@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
 var router = require('./routes');
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 4000;
 //this will let us get data from the request
 app.use(bodyParser.urlencoded({
     extended: true

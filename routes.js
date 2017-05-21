@@ -50,37 +50,33 @@ router.route('/admin/brand/:brand/phone').post((req, res) => {
     basicInfo: {
       phoneName: req.body.basicInfo.phoneName,
       brandName: req.params.brand,
-      additionalFeatures: req.body.basicInfo.additionalFeatures,
       releaseDate: req.body.basicInfo.releaseDate,
-      description: req.body.basicInfo.description
+      description: req.body.basicInfo.description,
+      features: req.body.basicInfo.features
     },
     design: {
       operatingSystem: req.body.design.operatingSystem,
-      deviceType: req.body.design.deviceType,
       dimension: req.body.design.dimension,
       weight: req.body.design.weight,
       materials: req.body.design.materials,
       colors: req.body.design.colors,
-      additionalFeatures: req.body.design.additionalFeatures
+      //features: req.body.design.features
     },
     display: {
+      resolution: req.body.display.resolution,
       size: req.body.display.size,
       pixelDensity: req.body.display.pixelDensity,
-      resolution: req.body.display.resolution,
       technology: req.body.display.technology,
       features: req.body.display.features
     },
     camera: {
       megaPixel: req.body.camera.megaPixel,
-      aperture: req.body.camera.aperture,
       pixelSize: req.body.camera.pixelDensity,
-      sensorSize: req.body.camera.sensorSize,
-      fieldOfView: req.body.camera.fieldOfView,
-      features: req.body.camera.features,
-      zoom: req.body.camera.zoom,
-      typeOfZoom: req.body.camera.typeOfZoom,
       modes: req.body.camera.modes,
-      settings: req.body.camera.settings,
+      aperture: req.body.camera.aperture,
+      sensorSize: req.body.camera.sensorSize,
+      zoom: req.body.camera.zoom,      
+      features: req.body.camera.features,
       frontCamera: req.body.camera.frontCamera,
       videoRecording: req.body.camera.videoRecording
     },
@@ -96,30 +92,33 @@ router.route('/admin/brand/:brand/phone').post((req, res) => {
     hardware: {
       chipset: req.body.hardware.chipset,
       processor: req.body.hardware.processor,
-      graphicsProcessor: req.body.hardware.graphicsProcessor,
       ram: req.body.hardware.ram,
-      internalstorage: req.body.hardware.internalstorage,
-      storageexpansion: req.body.hardware.storageexpansion,
+      graphicsProcessor: req.body.hardware.graphicsProcessor,
+      internalStorage: req.body.hardware.internalStorage,
+      storageExpansion: req.body.hardware.storageExpansion,
       sensors: req.body.hardware.sensors
     },
-    multimedia: {
-      audio: req.body.multimedia.audio,
-      video: req.body.multimedia.video
+    sound: {
+      speaker: req.body.sound.speaker,
+      microphone: req.body.sound.microphone,
+      headsetJack: req.body.sound.headsetJack,
+      soundType: req.body.sound.soundType
     },
     connectivity: {
       bluetooth: req.body.connectivity.bluetooth,
-      gps: req.body.connectivity.gps,
+      locationServices: req.body.connectivity.locationServices,
       usb: req.body.connectivity.usb,
       wifi: req.body.connectivity.wifi,
-      payment: req.body.connectivity.payment,
-      other: req.body.connectivity.other
+      nfc: req.body.connectivity.nfc,
+      others: req.body.connectivity.others
     },
     network: {
-      gsm: req.body.network.gsm,
       sim: req.body.network.sim,
-      data: req.body.network.data,
+      cdma: req.body.network.cdma,
+      gsm: req.body.network.gsm,
       lte: req.body.network.lte,
-      umts: req.body.network.umts
+      umts: req.body.network.umts,
+      others: req.body.network.others
     }
   })
   phone.save((err) => {

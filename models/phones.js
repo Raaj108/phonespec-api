@@ -5,19 +5,18 @@ var Schema = mongoose.Schema;
 var basicInfoSchema = new Schema({
   phoneName: String,
   brandName: String,
-  description: String,
   releaseDate: String,
-  additionalFeatures: [String]
+  description: String,
+  features: [String]
 })
 //DESIGN SCHEMA
 var designSchema = new Schema({
-  operatingSystem: String,
-  deviceType: String,
+  operatingSystem: String,  
   dimension: String,
   weight: String,
   materials: [String],
   colors: [String],
-  additionalFeatures: [String],
+  //features: [String],
 });
 //DISPLAY SCHEMA
 var displaySchema = new Schema({
@@ -29,15 +28,13 @@ var displaySchema = new Schema({
 });
 //CAMERA SCHEMA
 var cameraSchema = new Schema({
-  megaPixel: String,
-  modes: [String],
+  megaPixel: String,  
   pixelSize: String,
+  modes: [String],
   aperture: String,
-  sensorSize: String,
-  zoom: String,
-  typeOfZoom: String,
+  sensorSize: String,  
+  zoom: String, 
   features: [String],
-  settings: [String],
   frontCamera: Schema.Types.Mixed,
   videoRecording: [String]
 });
@@ -51,34 +48,40 @@ var batterySchema = new Schema({
   playBack: Schema.Types.Mixed,
   wirelessCharging: Boolean
 });
+//HARDWARE SCHEMA
 var hardwareSchema = new Schema({
+  chipset: String,
   processor: String,
   ram: String,
-  internalstorage: [String],
   graphicsProcessor: String,
-  storageexpansion: [String],
-  sensors:[String],
-  chipset: String
+  internalStorage: [String],
+  storageExpansion: [String],
+  sensors: [String]
 });
-var multiMediaSchema = new Schema({
-  audio: [Schema.Types.Mixed],
-  video: [Schema.Types.Mixed]
+//SOUND SCHEMA
+var soundSchema = new Schema({
+  speaker: String,
+  microphone: String,
+  headsetJack: String,
+  soundType: [String],
 });
+//CONNECTIVITY SCHEMA
 var connectivitySchema = new Schema({
   wifi: Schema.Types.Mixed,
-  gps: [String],
+  locationServices: [String],
   bluetooth: String,
-  payment: String,
+  nfc: String,
   usb: String,
-  other: Schema.Types.Mixed
+  others: Schema.Types.Mixed
 });
+//NETWORK SCHEMA
 var networkSchema = new Schema({
   sim: String,
-  data: [String],
+  cdma: [String],
   gsm: [String],
-  lteFDD: [Schema.Types.Mixed],
-  lteTTD: [Schema.Types.Mixed],
-  umts: [String]
+  lte: [Schema.Types.Mixed],
+  umts: [String],
+  others: [String]
 });
 //PHONE SCHEMA (PARENT OF ALL OTHER SCHEMAS)
 var phoneSchema = new Schema({
@@ -88,7 +91,7 @@ var phoneSchema = new Schema({
   camera: cameraSchema,
   battery: batterySchema,
   hardware: hardwareSchema,
-  multimedia: multiMediaSchema,
+  sound: soundSchema,
   connectivity: connectivitySchema,
   network: networkSchema
 });
