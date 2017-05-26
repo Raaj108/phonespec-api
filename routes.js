@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Phone = require('./models/phones');
 var Brand = require('./models/brands');
+var Comment = require('./models/comments');
 //routes for our APIs
 var router = express.Router();
 //Middleware to use for all request
@@ -75,7 +76,7 @@ router.route('/admin/brand/:brand/phone').post((req, res) => {
       modes: req.body.camera.modes,
       aperture: req.body.camera.aperture,
       sensorSize: req.body.camera.sensorSize,
-      zoom: req.body.camera.zoom,      
+      zoom: req.body.camera.zoom,
       features: req.body.camera.features,
       frontCamera: req.body.camera.frontCamera,
       videoRecording: req.body.camera.videoRecording
@@ -128,6 +129,15 @@ router.route('/admin/brand/:brand/phone').post((req, res) => {
     res.status(201).json(phone);
   })
 });
+
+//Method to post comments on the phone
+router.route('/admin/brand/:brand/phone/comment').post((req, res) => {
+  var comment = {
+    
+  }
+});
+
+
 //get all the phones with a specific brand (post the brand's name in the url to get all phones of a specific brand)
 router.route('/brand/:brand/phone').get((req, res) => {
   Phone.find({
@@ -146,8 +156,17 @@ router.route('/brand/:brand/phone/:phone').get((req, res) => {
   Phone.find({
     "basicInfo.phoneName": req.params.phone
   }, (err, phone) => {
-    if (err) res.send(err)
-    res.json(phone)
+    if (err) {
+      res.send(err)
+    } else {
+      var response = {
+        phone: phone,
+        comments: Comments.find({
+          "phone_id": phone._id
+        })
+      }
+      res.json(response);
+    }
   })
 });
 //update the specific phone's specific information (post the brand's name, phone's Id in the url, and info. that you want to update in request body to update phone's info.)

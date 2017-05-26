@@ -7,11 +7,12 @@ var basicInfoSchema = new Schema({
   brandName: String,
   releaseDate: String,
   description: String,
-  features: [String]
+  features: [String],
+  ratings:Number
 })
 //DESIGN SCHEMA
 var designSchema = new Schema({
-  operatingSystem: String,  
+  operatingSystem: String,
   dimension: String,
   weight: String,
   materials: [String],
@@ -28,12 +29,12 @@ var displaySchema = new Schema({
 });
 //CAMERA SCHEMA
 var cameraSchema = new Schema({
-  megaPixel: String,  
+  megaPixel: String,
   pixelSize: String,
   modes: [String],
   aperture: String,
-  sensorSize: String,  
-  zoom: String, 
+  sensorSize: String,
+  zoom: String,
   features: [String],
   frontCamera: Schema.Types.Mixed,
   videoRecording: [String]
@@ -83,6 +84,11 @@ var networkSchema = new Schema({
   umts: [String],
   others: [String]
 });
+
+var ratingAndCommentSchema = new Schema({
+  rating: Number,
+  comments: [String]
+});
 //PHONE SCHEMA (PARENT OF ALL OTHER SCHEMAS)
 var phoneSchema = new Schema({
   basicInfo: basicInfoSchema,
@@ -93,7 +99,22 @@ var phoneSchema = new Schema({
   hardware: hardwareSchema,
   sound: soundSchema,
   connectivity: connectivitySchema,
-  network: networkSchema
+  network: networkSchema,
+  Comments: [CommentSchema]
 });
+
+var commentsSchema = new Schema({ 
+  author: String,
+  posted: new Date(),
+  comment: String,
+  replies: [repliesSchema]
+});
+
+var repliesSchema: new Schema({ 
+  author: String,
+  posted: new Date(),
+  comment: String
+});
+
 var Phone = mongoose.model('Phone', phoneSchema);
 module.exports = Phone;
