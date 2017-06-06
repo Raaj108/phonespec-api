@@ -1,17 +1,44 @@
+// Get all the dependencies
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 var Phone = require('./models/phones');
 var Brand = require('./models/brands');
 var Comment = require('./models/comments');
-//routes for our APIs
+var Reply = require('./models/replies');
+var jsonfile = require('jsonfile')
+var file = './tmp/logs.json'
+
+//get an instance of router for our APIs
 var router = express.Router();
 //Middleware to use for all request
 router.use((req, res, next) => {
-  console.log("Processing Request");
+  console.log("Processing new request. Request details are as below:");
+
+  var req_obj = {
+    headers: req.headers,
+    ip: req.ip
+  }
+
+  /*jsonfile.writeFile(file, req_obj, {
+    spaces: 2
+  }, function (err) {
+    console.error(err)
+  });*/
+
+  fs.appendFile('request-log.txt', JSON.stringify(req_obj), (err) => {
+    if (err) throw err;
+    //console.log('The "data to append" was appended to file!');
+  });
+
   next();
 });
-//Our APIs
+
+
+//Our APIs starts from here
+
 /*********************URL related to brand******************************/
+
 //create a brand (accessed only by admin)
 router.route('/admin/brand').post((req, res) => {
   console.log(JSON.stringify(req.body));
@@ -24,6 +51,7 @@ router.route('/admin/brand').post((req, res) => {
     res.status(201).json(brand);
   })
 });
+
 //get all brands
 router.route('/brand').get((req, res) => {
   Brand.find((err, brands) => {
@@ -31,6 +59,7 @@ router.route('/brand').get((req, res) => {
     res.json(brands)
   })
 });
+
 //Update brand info(post the brand's ID to update a specific brand's information)(accessed only by admin)
 router.route('/admin/brand/:brandId').put((req, res) => {
   Brand.findById(req.params.brandId, (err, brand) => {
@@ -44,7 +73,10 @@ router.route('/admin/brand/:brandId').put((req, res) => {
     })
   })
 });
+
+
 /*********************URL related to phone******************************/
+
 // create a new phone with post request(post the brand's name in URL and Phone name in the body of request to add new phone with brand)(accessed only by admin)
 router.route('/admin/brand/:brand/phone').post((req, res) => {
   var phone = new Phone({
@@ -131,11 +163,14 @@ router.route('/admin/brand/:brand/phone').post((req, res) => {
 });
 
 //Method to post comments on the phone
-router.route('/admin/brand/:brand/phone/comment').post((req, res) => {
-  var comment = {
-    
-  }
-});
+/**router.route('/user/:phone_id/comment').post((req, res) => {
+  var comment = new Comment({
+    phone_id: req.params.phone_id,
+    author: String,
+    posted: new Date(),
+    comment: String,    
+  })
+}); **/
 
 
 //get all the phones with a specific brand (post the brand's name in the url to get all phones of a specific brand)
@@ -151,6 +186,8 @@ router.route('/brand/:brand/phone').get((req, res) => {
     res.json(result)
   })
 });
+
+
 //get a specific phone with a specific brand (post the brand's & phone's name in the url)
 router.route('/brand/:brand/phone/:phone').get((req, res) => {
   Phone.find({
@@ -169,6 +206,8 @@ router.route('/brand/:brand/phone/:phone').get((req, res) => {
     }
   })
 });
+
+
 //update the specific phone's specific information (post the brand's name, phone's Id in the url, and info. that you want to update in request body to update phone's info.)
 router.route('/admin/brand/:brand/phone/:phoneId').put((req, res) => {
     Phone.findById(req.params.phoneId, (err, phone) => {
@@ -186,6 +225,8 @@ router.route('/admin/brand/:brand/phone/:phoneId').put((req, res) => {
       })
     })
   })
+
+
   // delete a specific phone with phone's ID(post the brand's name, phone's Id in the url)
   .delete((req, res) => {
     Phone.remove({
