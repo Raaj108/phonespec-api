@@ -8,7 +8,7 @@ var basicInfoSchema = new Schema({
   releaseDate: String,
   description: String,
   features: [String],
-  ratings:Number
+  ratings: Number
 })
 //DESIGN SCHEMA
 var designSchema = new Schema({
@@ -85,10 +85,12 @@ var networkSchema = new Schema({
   others: [String]
 });
 
-var ratingAndCommentSchema = new Schema({
-  rating: Number,
-  comments: [String]
-});
+/*var Comments = new Schema({
+  author: String,
+  posted: Date,
+  comment: String
+});*/
+
 //PHONE SCHEMA (PARENT OF ALL OTHER SCHEMAS)
 var phoneSchema = new Schema({
   basicInfo: basicInfoSchema,
@@ -100,20 +102,7 @@ var phoneSchema = new Schema({
   sound: soundSchema,
   connectivity: connectivitySchema,
   network: networkSchema,
-  Comments: [CommentSchema]
-});
-
-var commentsSchema = new Schema({ 
-  author: String,
-  posted: new Date(),
-  comment: String,
-  replies: [repliesSchema]
-});
-
-var repliesSchema: new Schema({ 
-  author: String,
-  posted: new Date(),
-  comment: String
+//  comments: [Comments]
 });
 
 var Phone = mongoose.model('Phone', phoneSchema);
