@@ -163,14 +163,20 @@ router.route('/admin/brand/:brand/phone').post((req, res) => {
 });
 
 //Method to post comments on the phone
-/**router.route('/user/:phone_id/comment').post((req, res) => {
+router.route('/user/:phone_id/comment').post((req, res) => {
   var comment = new Comment({
     phone_id: req.params.phone_id,
-    author: String,
-    posted: new Date(),
-    comment: String,    
+    user: req.body.user,
+    posted: req.body.date,
+    comment: req.body.comment,
   })
-}); **/
+  comment.save((err) => {
+    if (err) {
+      res.send(err);
+    }
+    res.status(201).json(comment);
+  })
+});
 
 
 //get all the phones with a specific brand (post the brand's name in the url to get all phones of a specific brand)
@@ -193,17 +199,21 @@ router.route('/brand/:brand/phone/:phone').get((req, res) => {
   Phone.find({
     "basicInfo.phoneName": req.params.phone
   }, (err, phone) => {
-    if (err) {
-      res.send(err)
-    } else {
-      var response = {
-        phone: phone,
-        comments: Comments.find({
-          "phone_id": phone._id
-        })
-      }
-      res.json(response);
-    }
+    if (err) res.send(err)
+    res.json(phone);
+
+  })
+});
+
+
+//Get Comments
+//get a specific phone with a specific brand (post the brand's & phone's name in the url)
+router.route('/phone/:phone/comments').get((req, res) => {
+  Comment.find({
+    "phone_id": req.params.phone
+  }, (err, comments) => {
+    if (err) res.send(err)
+    res.json(comments);
   })
 });
 

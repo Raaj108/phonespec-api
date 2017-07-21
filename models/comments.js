@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var commentsSchema = new Schema({
-  phone: {
+  phone_id: {
     type: Schema.ObjectId,
     ref: 'Phone'
   },
-  author: String,
+  user: String,
   posted: Date,
   comment: String
 });
