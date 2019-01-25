@@ -15,7 +15,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use('/api', router);
 //open a connection to database
-mongoose.connect('mongodb://raj:password@ds129260.mlab.com:29260/restfulcrud');
+mongoose.connect('mongodb://raj:password@ds129260.mlab.com:29260/restfulcrud',{ useMongoClient: true });
 //test database connection
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, " connection error"));
